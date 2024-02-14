@@ -12,4 +12,16 @@ public interface RelatorioRepository extends JpaRepository<Produto, Integer> {
 
     @Query(value = "SELECT NOME, QUANTIDADE FROM PRODUTO", nativeQuery = true)
     Page<Object[]> findAllProdutosByQuantidade(Pageable pageable);
+
+    @Query(value = "SELECT p.nome, COUNT(pp.produto) as pedidos " +
+            "FROM PEDIDOXPRODUTO pp " +
+            "JOIN pp.produto p " +
+            "GROUP BY p.nome ")
+    Page<Object[]> findAllProdutosByPedidos(Pageable pageable);
+
+    @Query(value = "SELECT p.nome, TO_CHAR(pp.pedido.dataDePedido, 'MM') as mes, COUNT(pp.produto) as pedidos " +
+            "FROM PEDIDOXPRODUTO pp " +
+            "JOIN pp.produto p " +
+            "GROUP BY p.nome, TO_CHAR(pp.pedido.dataDePedido, 'MM')")
+    Page<Object[]> findAllProdutosByPedidosByMes(Pageable pageable);
 }

@@ -1,9 +1,10 @@
 package com.vemser.dbc.searchorganic.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vemser.dbc.searchorganic.dto.relatorio.RelatorioProdutoPedidosDTO;
+import com.vemser.dbc.searchorganic.dto.relatorio.RelatorioProdutoPedidosMesDTO;
 import com.vemser.dbc.searchorganic.dto.relatorio.RelatorioProdutoPrecoDTO;
 import com.vemser.dbc.searchorganic.dto.relatorio.RelatorioProdutoQuantidadeDTO;
-import com.vemser.dbc.searchorganic.model.Produto;
 import com.vemser.dbc.searchorganic.repository.RelatorioRepository;
 import com.vemser.dbc.searchorganic.service.interfaces.IRelatorioService;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,39 @@ public class RelatorioService implements IRelatorioService {
             BigDecimal quantidade = (BigDecimal) relatorios[1];
 
             RelatorioProdutoQuantidadeDTO relatorioDTO = new RelatorioProdutoQuantidadeDTO(nome, quantidade);
+            relatorioDTOs.add(relatorioDTO);
+        }
+
+        return new PageImpl<>(relatorioDTOs, pageable, resultado.getTotalElements());
+    }
+
+    public Page<RelatorioProdutoPedidosDTO> findAllProdutosByPedidos(Pageable pageable) throws Exception {
+        Page<Object[]> resultado = relatorioRepository.findAllProdutosByPedidos(pageable);
+
+        List<RelatorioProdutoPedidosDTO> relatorioDTOs = new ArrayList<>();
+
+        for (Object[] relatorios : resultado.getContent()) {
+            String nome = (String) relatorios[0];
+            Long pedidos = (Long) relatorios[1];
+
+            RelatorioProdutoPedidosDTO relatorioDTO = new RelatorioProdutoPedidosDTO(nome, pedidos);
+            relatorioDTOs.add(relatorioDTO);
+        }
+
+        return new PageImpl<>(relatorioDTOs, pageable, resultado.getTotalElements());
+    }
+
+    public Page<RelatorioProdutoPedidosMesDTO> findAllProdutosByPedidosByMes(Pageable pageable) throws Exception {
+        Page<Object[]> resultado = relatorioRepository.findAllProdutosByPedidosByMes(pageable);
+
+        List<RelatorioProdutoPedidosMesDTO> relatorioDTOs = new ArrayList<>();
+
+        for (Object[] relatorios : resultado.getContent()) {
+            String nome = (String) relatorios[0];
+            String mes = (String) relatorios[1];
+            Long pedidos = (Long) relatorios[2];
+
+            RelatorioProdutoPedidosMesDTO relatorioDTO = new RelatorioProdutoPedidosMesDTO(nome, mes, pedidos);
             relatorioDTOs.add(relatorioDTO);
         }
 
