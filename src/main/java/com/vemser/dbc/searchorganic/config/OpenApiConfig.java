@@ -35,7 +35,7 @@ public class OpenApiConfig {
                                 )
                 )
                 .servers(List.of(
-                        new Server().url("https://search-organic-production.up.railway.app/")
+                        new Server().url("https://search-organic.up.railway.app/")
                                 .description("Production Server")
                 ));
     }
