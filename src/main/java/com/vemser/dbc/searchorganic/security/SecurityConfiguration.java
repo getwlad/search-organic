@@ -93,6 +93,7 @@ public class SecurityConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
+                        .allowedOrigins("http://vemser-dbc.dbccompany.com.br:38080/", "https://search-organic.vercel.app/")
                         .allowedMethods("*")
                         .exposedHeaders("Authorization");
             }

@@ -33,10 +33,7 @@ public class OpenApiConfig {
                                                 .scheme("bearer")
                                                 .bearerFormat("JWT")
                                 )
-                )
-                .servers(List.of(
-                        new Server().url("https://search-organic.up.railway.app/")
-                                .description("Production Server")
-                ));
+
+               );
     }
 }
