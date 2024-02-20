@@ -6,8 +6,11 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Arrays;
 
 @Configuration
 public class OpenApiConfig {
@@ -21,6 +24,9 @@ public class OpenApiConfig {
                         .version("v1.0.0")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                .servers(Arrays.asList(
+                        new Server().url("https://search-organic.up.railway.app/")
+                ))
                 .components(
                         new Components()
                                 .addSecuritySchemes(securitySchemeName,
